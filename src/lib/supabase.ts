@@ -97,7 +97,7 @@ export const dbHelpers = {
       .insert(userData)
       .select()
       .single();
-    
+
     if (error) throw error;
     return data;
   },
@@ -108,12 +108,23 @@ export const dbHelpers = {
       .select('*')
       .eq('email', email)
       .single();
-    
+
     if (error) throw error;
     return data;
   },
 
-  // Vendors
+  // ✅ Vendors
+  async createVendor(vendorData: Omit<Vendor, 'id' | 'created_at' | 'updated_at'>) {
+    const { data, error } = await supabase
+      .from('vendors')
+      .insert(vendorData)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
   async getVendorsByWilaya(wilaya: string) {
     const { data, error } = await supabase
       .from('vendors')
@@ -121,7 +132,7 @@ export const dbHelpers = {
       .eq('wilaya', wilaya)
       .eq('is_active', true)
       .order('rating', { ascending: false });
-    
+
     if (error) throw error;
     return data;
   },
@@ -132,7 +143,7 @@ export const dbHelpers = {
       .select('*')
       .eq('vendor_id', vendorId)
       .eq('is_active', true);
-    
+
     if (error) throw error;
     return data;
   },
@@ -144,7 +155,7 @@ export const dbHelpers = {
       .insert(bookingData)
       .select()
       .single();
-    
+
     if (error) throw error;
     return data;
   },
@@ -159,7 +170,7 @@ export const dbHelpers = {
       `)
       .eq('customer_id', userId)
       .order('booking_date', { ascending: false });
-    
+
     if (error) throw error;
     return data;
   },
@@ -174,7 +185,7 @@ export const dbHelpers = {
       `)
       .eq('vendor_id', vendorId)
       .order('booking_date', { ascending: true });
-    
+
     if (error) throw error;
     return data;
   },
@@ -186,7 +197,7 @@ export const dbHelpers = {
       .insert(reviewData)
       .select()
       .single();
-    
+
     if (error) throw error;
     return data;
   },
@@ -200,7 +211,7 @@ export const dbHelpers = {
       `)
       .eq('vendor_id', vendorId)
       .order('review_date', { ascending: false });
-    
+
     if (error) throw error;
     return data;
   },
@@ -211,7 +222,7 @@ export const dbHelpers = {
       .from('wilayas')
       .select('*')
       .order('name_ar');
-    
+
     if (error) throw error;
     return data;
   }
