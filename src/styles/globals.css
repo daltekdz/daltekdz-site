@@ -1,0 +1,103 @@
+/* Global styles for Daltekdz */
+
+/* خط عربي جميل للنصوص العربية */
+[dir="rtl"] {
+  font-family: 'Cairo', 'Tajawal', 'Amiri', system-ui, sans-serif;
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+  font-family: 'Cairo', system-ui, sans-serif;
+  font-weight: 700;
+}
+
+[dir="rtl"] p, [dir="rtl"] span {
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+/* تحسين عرض النصوص العربية */
+[dir="rtl"] {
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A0000;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C8860D;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* RTL support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Focus styles */
+.focus-visible:focus {
+  outline: 2px solid #C8860D;
+  outline-offset: 2px;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #1A0000;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* تحسين عرض الخطوط العربية */
+.font-cairo {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+.font-tajawal {
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+.font-amiri {
+  font-family: 'Amiri', serif;
+}
