@@ -1,3 +1,4 @@
+// src/lib/supabaseClient.ts
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -9,7 +10,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Types for database tables
+// ---------- Database types ----------
 export interface User {
   id: string;
   full_name: string;
@@ -88,39 +89,22 @@ export interface Wilaya {
   name_ar: string;
 }
 
-// Helper functions for database operations
+// ---------- Helper Functions ----------
 export const dbHelpers = {
-  // Users
   async createUser(userData: Omit<User, 'id' | 'created_at' | 'updated_at'>) {
-    const { data, error } = await supabase
-      .from('users')
-      .insert(userData)
-      .select()
-      .single();
-
+    const { data, error } = await supabase.from('users').insert(userData).select().single();
     if (error) throw error;
     return data;
   },
 
   async getUserByEmail(email: string) {
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('email', email)
-      .single();
-
+    const { data, error } = await supabase.from('users').select('*').eq('email', email).single();
     if (error) throw error;
     return data;
   },
 
-  // ✅ Vendors
   async createVendor(vendorData: Omit<Vendor, 'id' | 'created_at' | 'updated_at'>) {
-    const { data, error } = await supabase
-      .from('vendors')
-      .insert(vendorData)
-      .select()
-      .single();
-
+    const { data, error } = await supabase.from('vendors').insert(vendorData).select().single();
     if (error) throw error;
     return data;
   },
@@ -132,30 +116,18 @@ export const dbHelpers = {
       .eq('wilaya', wilaya)
       .eq('is_active', true)
       .order('rating', { ascending: false });
-
     if (error) throw error;
     return data;
   },
 
   async getVendorServices(vendorId: string) {
-    const { data, error } = await supabase
-      .from('services')
-      .select('*')
-      .eq('vendor_id', vendorId)
-      .eq('is_active', true);
-
+    const { data, error } = await supabase.from('services').select('*').eq('vendor_id', vendorId).eq('is_active', true);
     if (error) throw error;
     return data;
   },
 
-  // Bookings
   async createBooking(bookingData: Omit<Booking, 'id' | 'created_at' | 'updated_at'>) {
-    const { data, error } = await supabase
-      .from('bookings')
-      .insert(bookingData)
-      .select()
-      .single();
-
+    const { data, error } = await supabase.from('bookings').insert(bookingData).select().single();
     if (error) throw error;
     return data;
   },
@@ -170,7 +142,6 @@ export const dbHelpers = {
       `)
       .eq('customer_id', userId)
       .order('booking_date', { ascending: false });
-
     if (error) throw error;
     return data;
   },
@@ -185,19 +156,12 @@ export const dbHelpers = {
       `)
       .eq('vendor_id', vendorId)
       .order('booking_date', { ascending: true });
-
     if (error) throw error;
     return data;
   },
 
-  // Reviews
   async createReview(reviewData: Omit<Review, 'id' | 'created_at'>) {
-    const { data, error } = await supabase
-      .from('reviews')
-      .insert(reviewData)
-      .select()
-      .single();
-
+    const { data, error } = await supabase.from('reviews').insert(reviewData).select().single();
     if (error) throw error;
     return data;
   },
@@ -211,18 +175,12 @@ export const dbHelpers = {
       `)
       .eq('vendor_id', vendorId)
       .order('review_date', { ascending: false });
-
     if (error) throw error;
     return data;
   },
 
-  // Wilayas
   async getAllWilayas() {
-    const { data, error } = await supabase
-      .from('wilayas')
-      .select('*')
-      .order('name_ar');
-
+    const { data, error } = await supabase.from('wilayas').select('*').order('name_ar');
     if (error) throw error;
     return data;
   }
