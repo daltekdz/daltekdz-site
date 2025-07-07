@@ -52,33 +52,6 @@ export const WhyChooseUs: React.FC = () => {
     { number: '4.9', label: isRTL ? 'تقييم المنصة' : 'Note Moyenne', isRating: true, icon: Star }
   ];
 
-  const steps = [
-    { 
-      step: '1', 
-      title: isRTL ? 'ابحث' : 'Recherchez', 
-      description: isRTL ? 'ابحث عن الخدمة والموقع المناسب' : 'Recherchez le service et l\'emplacement appropriés',
-      icon: MapPin
-    },
-    { 
-      step: '2', 
-      title: isRTL ? 'اختر' : 'Choisissez', 
-      description: isRTL ? 'اختر الصالون والوقت المناسب' : 'Choisissez le salon et l\'heure qui vous conviennent',
-      icon: Calendar
-    },
-    { 
-      step: '3', 
-      title: isRTL ? 'احجز' : 'Réservez', 
-      description: isRTL ? 'أكمل الحجز بضغطات قليلة' : 'Complétez la réservation en quelques clics',
-      icon: CheckCircle
-    },
-    { 
-      step: '4', 
-      title: isRTL ? 'استمتع' : 'Profitez', 
-      description: isRTL ? 'استمتع بخدمة عالية الجودة' : 'Profitez d\'un service de haute qualité',
-      icon: Star
-    }
-  ];
-
   return (
     <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,51 +135,12 @@ export const WhyChooseUs: React.FC = () => {
           ))}
         </div>
 
-        {/* How It Works Section - مثل Booksy */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-3xl p-16 shadow-xl mb-20 border border-gray-100"
-        >
-          <h3 className={`text-4xl font-bold text-gray-900 text-center mb-16 ${isRTL ? 'text-right' : 'text-left'}`}>
-            {isRTL ? 'كيف يعمل Daltekdz؟' : 'Comment fonctionne Daltekdz?'}
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            {steps.map((item, index) => (
-              <motion.div 
-                key={index} 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`text-center ${isRTL ? 'text-right' : 'text-left'} group`}
-              >
-                <div className="relative mb-8">
-                  <div className="w-24 h-24 bg-gradient-to-r from-[#C8860D] to-[#D4941A] text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto shadow-xl group-hover:scale-110 transition-transform duration-300">
-                    {item.step}
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div className="hidden md:block absolute top-12 left-full w-full h-1 bg-gradient-to-r from-[#C8860D] to-[#D4941A] opacity-30"></div>
-                  )}
-                </div>
-                <div className="w-16 h-16 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:from-[#C8860D]/10 group-hover:to-[#D4941A]/10 transition-all duration-300">
-                  <item.icon className="h-8 w-8 text-gray-600 group-hover:text-[#C8860D] transition-colors duration-300" />
-                </div>
-                <h4 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#C8860D] transition-colors duration-300">{item.title}</h4>
-                <p className="text-gray-600 text-lg leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Call to Action - مثل Booksy */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
           className="text-center"
         >
