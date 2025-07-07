@@ -2,7 +2,6 @@ import React from 'react';
 import { Navbar } from '../components/layout/Navbar';
 import { HeroSection } from '../components/sections/HeroSection';
 import { GallerySection } from '../components/sections/GallerySection';
-import { ServicesSection } from '../components/sections/ServicesSection';
 import { FilterSectionComponent } from '../components/sections/FilterSection';
 import { WhyChooseUsSection } from '../components/sections/WhyChooseUsSection';
 import { StatsSection } from '../components/sections/StatsSection';
@@ -21,7 +20,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onStartBooking = () => {} })
       <HeroSection onStartBooking={onStartBooking} />
       <GallerySection />
       <FeaturedStores />
-      <ServicesSection />
       <FilterSectionComponent />
       <WhyChooseUsSection />
       <StatsSection />
