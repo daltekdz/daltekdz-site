@@ -4,7 +4,6 @@ import { HeroSection } from '../components/sections/HeroSection';
 import { GallerySection } from '../components/sections/GallerySection';
 import { FilterSectionComponent } from '../components/sections/FilterSection';
 import { WhyChooseUsSection } from '../components/sections/WhyChooseUsSection';
-import { StatsSection } from '../components/sections/StatsSection';
 import { Footer } from '../components/layout/Footer';
 import { FeaturedStores } from '../components/FeaturedStores';
 import { ContactSectionComponent } from '../components/sections/ContactSection';
@@ -22,7 +21,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onStartBooking = () => {} })
       <FeaturedStores />
       <FilterSectionComponent />
       <WhyChooseUsSection />
-      <StatsSection />
       <ContactSectionComponent />
       <Footer />
     </div>
