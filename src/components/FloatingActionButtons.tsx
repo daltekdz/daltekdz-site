@@ -3,15 +3,19 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogIn, UserPlus, Store, Shield } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 
 export const FloatingActionButtons: React.FC = () => {
   const { isRTL } = useLanguage();
+  const { isAuthenticated } = useAuth();
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const location = useLocation();
 
   // Only show on home page
   const isHomePage = location.pathname === '/';
-  if (!isHomePage) return null;
+  
+  // Don't show if user is authenticated or not on home page
+  if (!isHomePage || isAuthenticated) return null;
 
   const buttons = [
     {

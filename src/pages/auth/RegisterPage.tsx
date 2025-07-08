@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, User, UserPlus, Phone, MapPin, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { wilayas, getWilayasSorted } from '../../data/wilayas';
 import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export const RegisterPage: React.FC = () => {
   const { t, isRTL, language } = useLanguage();
+  const { signUp } = useAuth();
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -44,13 +46,15 @@ export const RegisterPage: React.FC = () => {
     }
 
     try {
-      // Simulate registration
-      setTimeout(() => {
+      const success = await signUp(formData);
+      if (success) {
         navigate('/');
-        setLoading(false);
-      }, 1000);
+      } else {
+        setError(isRTL ? 'حدث خطأ أثناء إنشاء الحساب' : 'Erreur lors de la création du compte');
+      }
     } catch (err: any) {
       setError(err.message || (isRTL ? 'حدث خطأ أثناء إنشاء الحساب' : 'Erreur lors de la création du compte'));
+    } finally {
       setLoading(false);
     }
   };

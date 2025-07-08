@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { LanguageProvider } from './contexts/LanguageContext';
 import { LocationProvider } from './contexts/LocationContext';
 import { NotificationProvider } from './contexts/NotificationContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { AdminProvider, useAdmin } from './contexts/AdminContext';
 
 // Import pages
@@ -34,39 +35,41 @@ function App() {
     <LanguageProvider>
       <LocationProvider>
         <NotificationProvider>
-          <AdminProvider>
-            <Router>
-              <LocationPopup />
-              <FloatingActionButtons />
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<HomePage />} />
-                <Route path="/stores" element={<StoresPage />} />
-                <Route path="/store/:storeId" element={<StorePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                
-                {/* Store Routes */}
-                <Route path="/create-store" element={<CreateStorePage />} />
-                <Route path="/create-store/setup" element={<StoreSetupPage />} />
-                <Route path="/store/dashboard" element={<StoreDashboard />} />
-                
-                {/* Admin Routes */}
-                <Route path="/admin-login" element={<AdminLoginPage />} />
-                <Route 
-                  path="/admin-dashboard" 
-                  element={
-                    <ProtectedAdminRoute>
-                      <AdminDashboard />
-                    </ProtectedAdminRoute>
-                  } 
-                />
-                
-                {/* Fallback */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </Router>
-          </AdminProvider>
+          <AuthProvider>
+            <AdminProvider>
+              <Router>
+                <LocationPopup />
+                <FloatingActionButtons />
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/stores" element={<StoresPage />} />
+                  <Route path="/store/:storeId" element={<StorePage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  
+                  {/* Store Routes */}
+                  <Route path="/create-store" element={<CreateStorePage />} />
+                  <Route path="/create-store/setup" element={<StoreSetupPage />} />
+                  <Route path="/store/dashboard" element={<StoreDashboard />} />
+                  
+                  {/* Admin Routes */}
+                  <Route path="/admin-login" element={<AdminLoginPage />} />
+                  <Route 
+                    path="/admin-dashboard" 
+                    element={
+                      <ProtectedAdminRoute>
+                        <AdminDashboard />
+                      </ProtectedAdminRoute>
+                    } 
+                  />
+                  
+                  {/* Fallback */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </Router>
+            </AdminProvider>
+          </AuthProvider>
         </NotificationProvider>
       </LocationProvider>
     </LanguageProvider>

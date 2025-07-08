@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { LanguageSwitcher } from '../LanguageSwitcher';
+import { UserMenu } from '../UserMenu';
 import { Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { isRTL } = useLanguage();
+  const { isAuthenticated } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -61,11 +64,23 @@ export const Navbar: React.FC = () => {
             </div>
           </Link>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center">
+          {/* Right side content */}
+          <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse' : ''}`}>
+            {/* User Menu or Language Switcher */}
+            {isAuthenticated ? (
+              <UserMenu />
+            ) : (
+              <div className={`rounded-lg ${
+                isScrolled ? 'bg-gray-100/70' : 'bg-white/20 backdrop-blur-sm'
+              }`}>
+                <LanguageSwitcher />
+              </div>
+            )}
+            
+            {/* Mobile menu button */}
             <div className={`rounded-lg ${
               isScrolled ? 'bg-gray-100/70' : 'bg-white/20 backdrop-blur-sm'
-            } mr-2 sm:mr-0`}>
+            } sm:hidden`}>
               <LanguageSwitcher />
             </div>
             
@@ -101,27 +116,33 @@ export const Navbar: React.FC = () => {
             >
               {isRTL ? 'الصالونات' : 'Salons'}
             </Link>
-            <Link 
-              to="/login"
-              className="block py-2 text-base font-medium text-gray-900 hover:text-[#C8860D] transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {isRTL ? 'تسجيل الدخول' : 'Connexion'}
-            </Link>
-            <Link 
-              to="/register"
-              className="block py-2 text-base font-medium text-gray-900 hover:text-[#C8860D] transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {isRTL ? 'إنشاء حساب' : 'Créer un compte'}
-            </Link>
-            <Link 
-              to="/create-store"
-              className="block py-2 text-base font-medium text-gray-900 hover:text-[#C8860D] transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {isRTL ? 'إنشاء متجر' : 'Créer un salon'}
-            </Link>
+            
+            {/* Show auth links only if not authenticated */}
+            {!isAuthenticated && (
+              <>
+                <Link 
+                  to="/login"
+                  className="block py-2 text-base font-medium text-gray-900 hover:text-[#C8860D] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {isRTL ? 'تسجيل الدخول' : 'Connexion'}
+                </Link>
+                <Link 
+                  to="/register"
+                  className="block py-2 text-base font-medium text-gray-900 hover:text-[#C8860D] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {isRTL ? 'إنشاء حساب' : 'Créer un compte'}
+                </Link>
+                <Link 
+                  to="/create-store"
+                  className="block py-2 text-base font-medium text-gray-900 hover:text-[#C8860D] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {isRTL ? 'إنشاء متجر' : 'Créer un salon'}
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -3,15 +3,24 @@ import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Upload, MapPin, Phone, Mail, Store, FileText, Camera, Navigation, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { wilayas, getWilayasSorted } from '../../data/wilayas';
 import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export const StoreSetupPage: React.FC = () => {
   const { t, isRTL, language } = useLanguage();
+  const { isAuthenticated } = useAuth();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const selectedPlan = searchParams.get('plan') || 'gold';
+
+  // Redirect to login if not authenticated
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
   const [formData, setFormData] = useState({
     storeName: '',
@@ -40,6 +49,10 @@ export const StoreSetupPage: React.FC = () => {
   const [locationStatus, setLocationStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [locationError, setLocationError] = useState('');
   const totalSteps = 3;
+
+  if (!isAuthenticated) {
+    return null; // Will redirect to login
+  }
 
   const sortedWilayas = getWilayasSorted(language);
 

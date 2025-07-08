@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check, Star, TrendingUp, Users, BarChart3 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export const CreateStorePage: React.FC = () => {
   const { t, isRTL } = useLanguage();
+  const { isAuthenticated } = useAuth();
 
   const plans = [
     {
@@ -146,7 +148,10 @@ export const CreateStorePage: React.FC = () => {
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {plan.popular ? (isRTL ? 'ابدأ الآن' : 'Commencer maintenant') : (isRTL ? 'اختيار هذه الباقة' : 'Choisir ce forfait')}
+                  {isAuthenticated 
+                    ? (plan.popular ? (isRTL ? 'ابدأ الآن' : 'Commencer maintenant') : (isRTL ? 'اختيار هذه الباقة' : 'Choisir ce forfait'))
+                    : (isRTL ? 'تسجيل الدخول أولاً' : 'Se connecter d\'abord')
+                  }
                 </Link>
               </div>
             </motion.div>

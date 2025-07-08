@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, LogIn, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 
 export const LoginPage: React.FC = () => {
   const { t, isRTL } = useLanguage();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,13 +23,15 @@ export const LoginPage: React.FC = () => {
     setError('');
 
     try {
-      // Simulate login
-      setTimeout(() => {
+      const success = await signIn(email, password);
+      if (success) {
         navigate('/');
-        setLoading(false);
-      }, 1000);
+      } else {
+        setError(isRTL ? 'بيانات تسجيل الدخول غير صحيحة' : 'Identifiants incorrects');
+      }
     } catch (err: any) {
       setError(err.message || 'حدث خطأ أثناء تسجيل الدخول');
+    } finally {
       setLoading(false);
     }
   };
